@@ -1,6 +1,7 @@
 const express = require ('express');
 const hbs = require ('hbs');
 
+const port = process.env.PORT || 3000;//PORT for heroku
 let app = express ();
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -17,7 +18,6 @@ app.get ('/', (req, res) => {
     res.render('home.hbs', {
         pageTitle: "Home Page",
         welcomeMessage: 'Welcome to my website',
-      //  currentDate: new Date().getFullYear() + '.' +(new Date().getMonth()+1)
     });
 });
 
@@ -26,25 +26,13 @@ app.use((req, res, next) => {
     console.log (`${now}: ${req.method} ${req.url}`);
     next();
 });
-//app.get ('/', (req, res) => {
-    //res.send('<h1> Hello Express! I  can see you! </h1>');
-   // res.send({
-   // name: "yaoming",
-   // likes: ['bike', 'Big cities']
-//});
-//});
-
-//app.get('/about', (req, res)=>{
-//   res.send('About page')
-//});
 
 app.get('/about', (req, res)=>{
     res.render('about.hbs', {
         pageTitle: 'About Page',
-       // currentDate: new Date().getFullYear() + '.' +(new Date().getMonth()+1)
-    });
+     });
 });
 
-app.listen(3000, () => {
-    console.log('Server is up on 3000')
+app.listen(port, () => {
+    console.log(`Server is up on ${port}`)
 });
